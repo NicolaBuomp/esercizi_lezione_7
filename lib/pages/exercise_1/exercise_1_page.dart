@@ -17,64 +17,86 @@ class Exercise1Page extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Esercizio 1: Riverpod con due contatori'),
+        title: const Text('Esercizio 1'),
       ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                // Visualizzazione del primo contatore
-                const Text('Counter 1', style: TextStyle(fontSize: 24)),
-                Text('$counter1',
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 10),
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        ref.read(counterProvider1.notifier).incrementCounter1();
-                      },
-                      child: const Icon(Icons.add),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        ref.read(counterProvider1.notifier).incrementCounter1();
-                      },
-                      child: const Icon(Icons.remove),
-                    ),
-                  ],
-                ),
-              ],
+            const Text(
+              'Fai in modo che la somma dei counter sia divisibile per 2',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Counter 2', style: TextStyle(fontSize: 24)),
-                Text('$counter2',
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 10),
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        ref.read(counterProvider1.notifier).incrementCounter2();
-                      },
-                      child: const Icon(Icons.add),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        ref.read(counterProvider1.notifier).incrementCounter2();
-                      },
-                      child: const Icon(Icons.remove),
-                    ),
-                  ],
-                ),
-              ],
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      // Visualizzazione del primo contatore
+                      const Text('Counter 1', style: TextStyle(fontSize: 24)),
+                      Text('$counter1',
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 10),
+                      Column(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              ref
+                                  .read(counterProvider1.notifier)
+                                  .incrementCounter1();
+                            },
+                            child: const Icon(Icons.add),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              ref
+                                  .read(counterProvider1.notifier)
+                                  .incrementCounter1();
+                            },
+                            child: const Icon(Icons.remove),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Counter 2', style: TextStyle(fontSize: 24)),
+                      Text('$counter2',
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 10),
+                      Column(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              ref
+                                  .read(counterProvider1.notifier)
+                                  .incrementCounter2();
+                            },
+                            child: const Icon(Icons.add),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              ref
+                                  .read(counterProvider1.notifier)
+                                  .incrementCounter2();
+                            },
+                            child: const Icon(Icons.remove),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
