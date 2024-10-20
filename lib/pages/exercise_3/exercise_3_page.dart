@@ -1,3 +1,4 @@
+import 'package:esercizi_lezione_7/widgets/CustomSnackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -14,8 +15,10 @@ class Exercise3Page extends HookConsumerWidget {
     useEffect(() {
       if (counterValue == 10 && !snackBarShown.value) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Hai raggiunto il valore di 10!')),
+          CustomTopSnackBar.show(
+            context,
+            'Hai raggiunto il valore $counterValue!',
+            backgroundColor: Colors.green,
           );
         });
         snackBarShown.value = true;

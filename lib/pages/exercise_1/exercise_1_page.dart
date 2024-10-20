@@ -1,3 +1,4 @@
+import 'package:esercizi_lezione_7/widgets/CustomSnackBar.dart'; // Importa il tuo widget personalizzato
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -34,14 +35,17 @@ class Exercise1Page extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           final count = ref.read(counterProvider);
-          if (count % 5 == 0) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Il contatore è divisibile per 5!')),
+          if (count % 2 == 0) {
+            CustomTopSnackBar.show(
+              context,
+              'Il contatore è divisibile per 2!',
+              backgroundColor: Colors.green,
             );
-          }
-          if (count % 5 == 0) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Il contatore è divisibile per 5!')),
+          } else {
+            CustomTopSnackBar.show(
+              context,
+              'Il contatore non è divisibile per 2!',
+              backgroundColor: Colors.red,
             );
           }
         },
