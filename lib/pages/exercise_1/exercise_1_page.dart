@@ -1,50 +1,108 @@
+import 'package:esercizi_lezione_7/pi/counter.provider.dart';
 import 'package:esercizi_lezione_7/widgets/CustomSnackBar.dart'; // Importa il tuo widget personalizzato
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-// Definisco il provider per il contatore
-final counterProvider = StateProvider<int>((ref) => 0);
 
 class Exercise1Page extends ConsumerWidget {
   const Exercise1Page({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final count = ref.watch(counterProvider);
+    // Utilizzo di `select` per osservare solo `counter1`
+    final counter1 =
+        ref.watch(counterProvider1.select((state) => state.counter1));
+    // Utilizzo di `select` per osservare solo `counter2`
+    final counter2 =
+        ref.watch(counterProvider1.select((state) => state.counter2));
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Esercizio 1: Riverpod'),
+        title: const Text('Esercizio 1: Riverpod con due contatori'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Valore del contatore: $count',
-                style: const TextStyle(fontSize: 24)),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                ref.read(counterProvider.notifier).state++;
-              },
-              child: const Text('Incrementa'),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                // Visualizzazione del primo contatore
+                const Text('Counter 1', style: TextStyle(fontSize: 24)),
+                Text('$counter1',
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 10),
+                Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        ref.read(counterProvider1.notifier).incrementCounter1();
+                      },
+                      child: const Icon(Icons.add),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        ref.read(counterProvider1.notifier).incrementCounter1();
+                      },
+                      child: const Icon(Icons.remove),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Counter 2', style: TextStyle(fontSize: 24)),
+                Text('$counter2',
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 10),
+                Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        ref.read(counterProvider1.notifier).incrementCounter2();
+                      },
+                      child: const Icon(Icons.add),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        ref.read(counterProvider1.notifier).incrementCounter2();
+                      },
+                      child: const Icon(Icons.remove),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final count = ref.read(counterProvider);
-          if (count % 2 == 0) {
+          if ((counter1 + counter2) % 2 == 0) {
             CustomTopSnackBar.show(
               context,
-              'Il contatore è divisibile per 2!',
+              'La somma dei due counter è divisibile per 2!',
               backgroundColor: Colors.green,
             );
-          } else {
+          } else if (counter1 % 2 == 0 && counter2 % 2 != 0) {
             CustomTopSnackBar.show(
               context,
-              'Il contatore non è divisibile per 2!',
+              'Solo il counter 1 è divisibile per 2!',
+              backgroundColor: Colors.orange,
+            );
+          } else if (counter1 % 2 != 0 && counter2 % 2 == 0) {
+            CustomTopSnackBar.show(
+              context,
+              'Solo il counter 2 è divisibile per 2!',
+              backgroundColor: Colors.orange,
+            );
+          } else if (counter1 % 2 != 0 && counter2 % 2 != 0) {
+            CustomTopSnackBar.show(
+              context,
+              'Nessun counter è divisibile per 2!',
               backgroundColor: Colors.red,
             );
           }
